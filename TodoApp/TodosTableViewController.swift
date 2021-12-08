@@ -6,17 +6,21 @@
 //
 
 import UIKit
-
-struct TodoItem {
-    var todoTitle : String
-    var todoDate : String
-    var todoNotes : String
-    var completed : Bool
-}
+import CoreData
 
 class TodosTableViewController: UITableViewController {
     
-    var todos = [TodoItem(todoTitle: "Awesome Stuff", todoDate: "12/12/2020", todoNotes: "Nothing Important", completed: false)]
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    let saveContext = (UIApplication.shared.delegate as! AppDelegate).saveContext
+    
+    
+    var todos : [Todo] = []
+    
+    override func viewDidAppear(_ animated: Bool) {
+        fetchTodos()
+        tableView.reloadData()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,69 +37,52 @@ class TodosTableViewController: UITableViewController {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath) as! TodoTableViewCell
         
-        cell.todoTitle.text = todos[indexPath.row].todoTitle
-        cell.todoDueDate.text = todos[indexPath.row].todoDate
-        cell.todoNotes.text = todos[indexPath.row].todoNotes
+        let todo = todos[indexPath.row]
+        cell.todoTitle.text = todo.title!
+        cell.todoNotes.text = todo.note!
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        let dateString = dateFormatter.string(from: todo.due_date!)
+        cell.todoDueDate.text = dateString
+        
+        if todo.completed {
+            cell.accessoryType = UITableViewCell.AccessoryType.checkmark
+        }
 
         return cell
     }
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCell.AccessoryType.checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.none
-        }else{
+        let todo = todos[indexPath.row]
+        todo.completed = !todo.completed
+        if todo.completed {
             tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.checkmark
+        }else{
+            tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.none
         }
-        tableView.deselectRow(at: indexPath, animated: false)
+        saveContext()
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        let todo = todos[indexPath.row]
+        context.delete(todo)
+        saveContext()
+        todos.remove(at: indexPath.row)
+        tableView.reloadData()
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    func fetchTodos(){
+        let request:NSFetchRequest<Todo> = Todo.fetchRequest()
+        do{
+            todos = try context.fetch(request)
+        }catch{
+            print(error)
+        }
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
 
 }

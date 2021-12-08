@@ -15,6 +15,7 @@
 		114F329E275FFCDC00BED4BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 114F329C275FFCDC00BED4BD /* LaunchScreen.storyboard */; };
 		114F32AC2760024F00BED4BD /* TodosTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114F32AB2760024F00BED4BD /* TodosTableViewController.swift */; };
 		114F32AF2760027D00BED4BD /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114F32AE2760027D00BED4BD /* TodoTableViewCell.swift */; };
+		114F32B227608A2900BED4BD /* AddTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114F32B127608A2900BED4BD /* AddTodoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		114F329F275FFCDC00BED4BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		114F32AB2760024F00BED4BD /* TodosTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosTableViewController.swift; sourceTree = "<group>"; };
 		114F32AE2760027D00BED4BD /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
+		114F32B127608A2900BED4BD /* AddTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				114F328E275FFCDA00BED4BD /* AppDelegate.swift */,
 				114F3290275FFCDA00BED4BD /* SceneDelegate.swift */,
 				114F3294275FFCDA00BED4BD /* Main.storyboard */,
+				114F32B127608A2900BED4BD /* AddTodoViewController.swift */,
 				114F32AE2760027D00BED4BD /* TodoTableViewCell.swift */,
 				114F329A275FFCDC00BED4BD /* Assets.xcassets */,
 				114F329C275FFCDC00BED4BD /* LaunchScreen.storyboard */,
@@ -147,6 +150,7 @@
 				114F32AC2760024F00BED4BD /* TodosTableViewController.swift in Sources */,
 				114F3291275FFCDA00BED4BD /* SceneDelegate.swift in Sources */,
 				114F32AF2760027D00BED4BD /* TodoTableViewCell.swift in Sources */,
+				114F32B227608A2900BED4BD /* AddTodoViewController.swift in Sources */,
 				114F3299275FFCDA00BED4BD /* TodoApp.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
